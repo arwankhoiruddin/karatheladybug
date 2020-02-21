@@ -1,8 +1,6 @@
 package core.characters;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.transform.Rotate;
-import jdk.management.jfr.ConfigurationInfo;
 import libs.Configs;
 import libs.Sprite;
 import javafx.scene.image.Image;
