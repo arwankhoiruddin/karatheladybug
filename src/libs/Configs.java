@@ -1,9 +1,7 @@
 package libs;
 
-import core.characters.KaraStatus;
 import javafx.scene.canvas.GraphicsContext;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Configs {
@@ -11,7 +9,7 @@ public class Configs {
 
     public static int appWidth = 1400;
     public static int appHeight = 1400;
-    public static int tileSize = 100;
+    public static int tileSize = 50;
 
     // Kara Initial Position
     public static int xCoord = 1;
@@ -22,7 +20,6 @@ public class Configs {
     // global variables, don't change this part
     public static GraphicsContext gc;
     public static int[][] tiles;
-    public static boolean moveKara = true;
-
+    public static int[][] origTiles;
     public static LinkedList movements = new LinkedList();
 }

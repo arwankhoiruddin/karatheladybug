@@ -36,11 +36,13 @@ public class Main extends Application {
             }
 
             Configs.tiles = new int[xTile][yTile];
+            Configs.origTiles = new int[xTile][yTile];
 
             // copy content from temp to tiles
             for (int i=0; i<xTile; i++) {
                 for (int j=0; j<yTile; j++) {
                     Configs.tiles[i][j] = tempLayout[i][j];
+                    Configs.origTiles[i][j] = tempLayout[i][j];
                 }
             }
 
@@ -67,6 +69,17 @@ public class Main extends Application {
         setBackground(Configs.gc);
 
         final long startNanoTime = System.nanoTime();
+
+        // reset before starting
+        Configs.xCoord = 1;
+        Configs.yCoord = 1;
+
+        // reset the location matrix to the original
+        for (int x=0; x<Configs.tiles.length; x++) {
+            for (int y=0; y<Configs.tiles[0].length; y++) {
+                Configs.tiles[x][y] = Configs.origTiles[x][y];
+            }
+        }
 
         new AnimationTimer() {
             int counter = 0;
@@ -114,14 +127,22 @@ public class Main extends Application {
                 field.resize(Configs.tileSize, Configs.tileSize);
                 field.render(gc, x * Configs.tileSize, y * Configs.tileSize);
 
-                if (Configs.tiles[x][y] == 1) {
-                    Tree tree = new Tree();
-                    tree.resize(Configs.tileSize, Configs.tileSize);
-                    tree.render(gc, x * Configs.tileSize, y * Configs.tileSize);
-                } else if (Configs.tiles[x][y] == 2) {
-                    Mushroom mushroom = new Mushroom();
-                    mushroom.resize(Configs.tileSize, Configs.tileSize);
-                    mushroom.render(gc, x * Configs.tileSize, y * Configs.tileSize);
+                switch (Configs.tiles[x][y]) {
+                    case 1:
+                        Tree tree = new Tree();
+                        tree.resize(Configs.tileSize, Configs.tileSize);
+                        tree.render(gc, x * Configs.tileSize, y * Configs.tileSize);
+                        break;
+                    case 2:
+                        Mushroom mushroom = new Mushroom();
+                        mushroom.resize(Configs.tileSize, Configs.tileSize);
+                        mushroom.render(gc, x * Configs.tileSize, y * Configs.tileSize);
+                        break;
+                    case 9:
+                        Finish finishFlag = new Finish();
+                        finishFlag.resize(Configs.tileSize, Configs.tileSize);
+                        finishFlag.render(gc, x * Configs.tileSize, y * Configs.tileSize);
+                        break;
                 }
             }
         }

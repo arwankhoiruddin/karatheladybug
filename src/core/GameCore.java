@@ -1,6 +1,7 @@
 package core;
 
 import core.characters.Kara;
+import core.characters.KaraPosition;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -19,12 +20,32 @@ public class GameCore implements CoreFunc {
         // put your code here
         Kara kara = new Kara();
         kara.start();
-        kara.forward();
-        kara.eat();
-        kara.turnRight();
-        kara.forward();
-        kara.turnLeft();
-        kara.turnRight();
+
+        int mushroomFound = 0;
+        while (!kara.finish()) {
+            // eat the mushroom if any
+            if (kara.onMushroom()) {
+                kara.eat();
+                mushroomFound++;
+            }
+
+            // sunnah to turn right first
+            if (kara.hitTree()) {
+                // sunnah to choose right
+                if (kara.canTurnRight()) {
+                    kara.turnRight();
+                } else {
+                    if (kara.canTurnLeft()) {
+                        kara.turnLeft();
+                    } else {
+                        System.out.println("dead end");
+                    }
+                }
+            }
+
+            kara.forward();
+        }
+        System.out.println("Mushroom found: " + mushroomFound);
     }
 
 }
